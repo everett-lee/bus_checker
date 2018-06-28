@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang=en>
+{% load staticfiles %}
+<html>
+    <head>
+      <title>Bus checker</title>
+      {% include 'snippets/css.html' %}
+    </head>
+    <body>
+      <div class='container bg-danger text-white'>
+        <h1 class='display-4 text-center pt-2 pb-4 mb-4'> Bus status checker </h1>
+      </div>
+      <div class="text-center">
+        {% if user.email %}
+          <p> You are logged in as {{request.user.email}} <p>
+        {% endif %}
+      </div>
+      <nav class='navbar navbar-default'>
+        <div class='container'>
+          <a href='/home'>Bus Search</a>
+          <a href='/manage-buses '>Manage Buses</a>
+          <a href='/user '>Log in</a>
+          <a href='/logout '>Log out</a>
+          <a class='float-right' href='/register'>Register</a>
+        </div>
+      </nav>
+      <div class='content text-center' >
+        {% block content %}{% endblock content %}
+      </div>
+    </body>
+</html>

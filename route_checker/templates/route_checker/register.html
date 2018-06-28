@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Register</h1>
+    <form method='POST' class='form-inline justify-content-center pb-3 pt-4'> {% csrf_token %}
+      <div class='form-group'>
+      {{ form }}
+      </div>
+      <button type='submit' button class='btn btn-outline-danger ml-3'>Submit</button>
+    </form>
+
+{% endblock %}

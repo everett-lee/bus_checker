@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+  <form class='form-inline justify-content-center pb-3 pt-4' method='get'>
+    <div class='form-group'>
+      <input type='text' class='form-control' name='bus'>
+    </div>
+      <button class='btn btn-outline-danger ml-3' type='submit'>Search buses</button>
+  </form>
+  {% if data %}
+    <div class='content mr-5 ml-5 pl-5 pr-5 pb-4 pt-4'>
+    {% if data.response_code %}
+      <p class='text-center'><strong>Bus not found</strong></p>
+    {% elif data.0.status_severity == 'Good Service' %}
+      <p class='text-center'><strong>{{ data.0.status_severity }}</strong></p>
+    {% else %}
+      {% for key, value in data.items %}
+        <p class='text-left'><strong>{{ value.reason }}</strong></p>
+        {% if value.latlon %}
+            {% for place in value.latlon %}
+            <iframe class='pt-4'
+              width='600'
+              height='450'
+              frameborder='0'
+              style='border:0'
+              src='https://www.google.com/maps/embed/v1/place?q={{ place.0 }}%2C%20{{ place.1 }}&key={{google_auth_key.google_auth_key}}' allowfullscreen></iframe>
+              <br></br>
+            {% endfor %}
+    </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endblock %}
