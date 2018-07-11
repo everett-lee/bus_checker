@@ -1,10 +1,13 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.http import is_safe_url
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DeleteView
+from django.urls import reverse_lazy
 from route_checker.services import get_bus
 from .forms import UserAdminCreationForm, LoginForm, BusForm
+from .models import BusUser, Buses
 from decouple import config
 import requests
 
@@ -24,15 +27,29 @@ def register_page(request):
 
     return render(request, 'register.html', context)
 
+@login_required
 def manage(request):
     form = BusForm(request.POST or None)
+    if request.user.is_anonymous:
+        buses = None
+    else:
+        buses = Buses.objects.filter(user__email=request.user.email)
     context = {
-        'form': form
+        'form': form,
+        'buses': buses
     }
     if form.is_valid():
+        form = form.save(commit = False)
+        form.user = request.user
         form.save()
 
     return render(request, 'manage.html', context)
+
+class DeleteBus(DeleteView):
+    template_name = 'buses_confirm_delete.html'
+    model = Buses
+    success_url = reverse_lazy('manage')
+
 
 def login_page(request):
     form = LoginForm(request.POST or None)

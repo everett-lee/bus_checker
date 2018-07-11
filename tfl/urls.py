@@ -24,4 +24,5 @@ urlpatterns = [
     path('manage-buses/', views.manage, name='manage'),
     path('user/', views.login_page, name='login'),
     path('logout/', views.log_out, name='logout'),
+    path('manage-buses/delete/<int:pk>', views.DeleteBus.as_view(), name='delete_bus'),
 ]

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+from django.urls import reverse
 
 class BusUserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -35,8 +36,6 @@ class BusUserManager(BaseUserManager):
         user.active = True
         user.save(using=self._db)
         return user
-
-
 
     def create_superuser(self, email, password):
         """
@@ -96,7 +95,10 @@ class BusUser(AbstractBaseUser):
 
 class Buses(models.Model):
     bus = models.CharField(max_length=10)
-    user = models.ManyToManyField(BusUser)
+    user = models.ForeignKey(BusUser, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse('manage', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.bus

@@ -3,13 +3,14 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from .models import BusUser, Buses
 
+#### @login_required
 class BusForm(forms.ModelForm):
     """A form for adding busses to the user."""
     bus = forms.CharField(label='Bus')
 
     class Meta:
-        model = BusUser
-        fields = ['bus']
+        model = Buses
+        fields = ['bus',]
 
 
 class UserAdminCreationForm(forms.ModelForm):
@@ -57,5 +58,6 @@ class UserAdminChangeForm(forms.ModelForm):
         return self.initial['password']
 
 class LoginForm(forms.Form):
+
     username = forms.EmailField(label='Email')
     password = forms.CharField(widget=forms.PasswordInput)

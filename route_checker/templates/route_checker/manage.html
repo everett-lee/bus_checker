@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Add bus</h1>
-    <form method='post'>{% csrf_token %}
+    <form  class='form-inline justify-content-center pb-3 pt-4' method='post'>{% csrf_token %}
       {{ form }}
-      <button type='submit' class='btn btn-default'>Submit</button>
+      <button type='submit' class='btn btn-outline-danger ml-3'>Add bus</button>
     </form>
+    <br>
+    <div class="container w-25 h-25">
+      {% if buses %}
+      <ul class='list-group'>
+      {% for bus in buses %}
+        <li class='list-group-item'> {{ bus }} </li>
+        <input type='button' class='btn btn-light btn-sm' value='Delete' onclick="location.href = '{% url "delete_bus" bus.pk %}';">
+        <br>
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
 {% endblock %}
