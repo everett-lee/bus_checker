@@ -74,7 +74,7 @@ def login_page(request):
             else:
                 return redirect('homepage')
         else:
-            # Return an 'invalid login' error message.
+            # return an 'invalid login' error message.
             print('Error')
 
     return render(request, 'login.html', context)
