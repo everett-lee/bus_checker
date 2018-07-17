@@ -1,4 +1,4 @@
 # bus_checker
-Web app to query TFL API
+Web app for TFL API queries
 
 ![alt text](https://github.com/everett-lee/bus_checker/blob/master/result.JPG)
