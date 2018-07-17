@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.utils.http import is_safe_url
 from django.views.generic import TemplateView, DeleteView
 from django.urls import reverse_lazy

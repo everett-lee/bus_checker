@@ -1,17 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
 from .models import BusUser, Buses
 
-#### @login_required
 class BusForm(forms.ModelForm):
-    """A form for adding busses to the user."""
     bus = forms.CharField(label='Bus')
 
     class Meta:
         model = Buses
         fields = ['bus',]
-
 
 class UserAdminCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -24,7 +20,7 @@ class UserAdminCreationForm(forms.ModelForm):
         fields = ('email',)
 
     def clean_password2(self):
-        #check that the two password entries match
+        # check that the two password entries match
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
         if password1 and password2 and password1 != password2:
@@ -38,7 +34,6 @@ class UserAdminCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
 
 class UserAdminChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
@@ -58,6 +53,5 @@ class UserAdminChangeForm(forms.ModelForm):
         return self.initial['password']
 
 class LoginForm(forms.Form):
-
     username = forms.EmailField(label='Email')
     password = forms.CharField(widget=forms.PasswordInput)

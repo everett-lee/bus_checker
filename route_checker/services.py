@@ -17,10 +17,9 @@ def get_bus(bus):
         data = {'response_code': 404}
     elif response.status_code == 200:
         bus_info = json.loads(response.text)[0]
-
+        count = 0
         if bus_info['lineStatuses']:
             for status in bus_info['lineStatuses']:
-                count = 0
                 data[count] = {}
                 data[count]['status_severity'] = status['statusSeverityDescription']
 
@@ -35,7 +34,7 @@ def get_bus(bus):
 
                     # creates list of possible place pairs
                     for x, y in zip(s, s[1:]):
-                        places.append(x+' '+y)
+                        places.append(x + ' ' + y)
 
                     # gets a list of bus stops on relevant route
                     url = 'https://api.tfl.gov.uk/line/' + bus + '/stoppoints'

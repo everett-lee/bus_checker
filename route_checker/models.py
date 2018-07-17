@@ -62,7 +62,6 @@ class BusUser(AbstractBaseUser):
     staff = models.BooleanField(default=False)
 
     objects = BusUserManager()
-
     USERNAME_FIELD = 'email'
 
     def __str__(self):
