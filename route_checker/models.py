@@ -7,7 +7,7 @@ from django.urls import reverse
 class BusUserManager(BaseUserManager):
     def create_user(self, email, password=None):
         """
-        Creates and saves a User with the given email and password.
+        creates and saves a user with the given email and password.
         """
         if not email:
             raise ValueError('Users must have an email address')
@@ -25,7 +25,7 @@ class BusUserManager(BaseUserManager):
 
     def create_staffuser(self, email, password):
         """
-        Creates and saves a staff user with the given email and password.
+        creates and saves a staff user with the given email and password.
         """
         user = self.create_user(
             email,
@@ -39,7 +39,7 @@ class BusUserManager(BaseUserManager):
 
     def create_superuser(self, email, password):
         """
-        Creates and saves a superuser with the given email and password.
+        creates and saves a superuser with the given email and password.
         """
         user = self.create_user(
             email,
@@ -68,28 +68,21 @@ class BusUser(AbstractBaseUser):
         return self.email
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property
     def is_staff(self):
-        "Is the user a member of staff?"
         return self.staff
 
     @property
     def is_admin(self):
-        "Is the user a admin member?"
         return self.admin
 
     @property
     def is_active(self):
-        "Is the user active?"
         return self.active
 
 class Buses(models.Model):

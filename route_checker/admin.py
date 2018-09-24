@@ -6,11 +6,11 @@ from .models import BusUser
 
 
 class UserAdmin(BaseUserAdmin):
-    # The forms to add and change user instances
+    # forms to add and change user instances
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
 
-    # The fields to be used in displaying the User model.
+    # fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     list_display = ('email', 'admin')
@@ -35,5 +35,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(BusUser, UserAdmin)
 
-# Remove Group Model from admin. We're not using it.
 admin.site.unregister(Group)
