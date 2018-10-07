@@ -44,12 +44,6 @@ def manage(request):
 
     return render(request, 'manage.html', context)
 
-class DeleteBus(DeleteView):
-    template_name = 'buses_confirm_delete.html'
-    model = Buses
-    success_url = reverse_lazy('manage')
-
-
 def login_page(request):
     form = LoginForm(request.POST or None)
     context = {
@@ -93,3 +87,8 @@ class BusPage(TemplateView):
                 data = get_bus(bus)
 
         return render(request, 'home.html', {'data': data, 'google_auth_key': google_auth_key})
+
+class DeleteBus(DeleteView):
+    template_name = 'buses_confirm_delete.html'
+    model = Buses
+    success_url = reverse_lazy('manage')
